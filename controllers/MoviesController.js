@@ -6,7 +6,7 @@ const index = (req, res, next) => {
 
     let sql = `SELECT * FROM movies`;
 
-    const params = [];
+    let params = [];
 
     if (filters.search) {
         sql += `
@@ -18,9 +18,6 @@ const index = (req, res, next) => {
     };
     console.log(sql);
     
-
-
-
     connection.query(sql, params, (err, movies) => {
         if (err) {
             return next(new Error(err.message))
