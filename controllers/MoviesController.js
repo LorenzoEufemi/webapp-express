@@ -1,10 +1,23 @@
 const connection = require("../data/db");
 
+
 const index = (req, res, next) => {
+    const filters = req.query;
 
     const sql = `SELECT * FROM movies`;
 
-    connection.query(sql, (err, movies) => {
+    const params = [];
+
+    if(filters.search) {
+        sql += `WHERE title LIKE ?`;
+
+        params.push(`%${filters.search}%`);
+        
+    };
+
+
+
+    connection.query(sql, params, (err, movies) => {
         if (err) {
             return next(new Error(err.message))
         } else {
