@@ -16,10 +16,11 @@ app.use(cors({
 
 app.use("/movies", moviesRouter);//includo tutte le rotte dei movies con prefisso /movies
 
-app.use(notFoundRoute);//gestisce rotte non valide
+
 
 app.use(handlerErrors);//gestisce handler error
 
+app.use(notFoundRoute);//gestisce rotte non valide
 
 app.listen(port, () => { // per aprire il server
     console.log(`Il server è partito al ${port} port`)

@@ -4,16 +4,20 @@ const connection = require("../data/db");
 const index = (req, res, next) => {
     const filters = req.query;
 
-    const sql = `SELECT * FROM movies`;
+    let sql = `SELECT * FROM movies`;
 
     const params = [];
 
-    if(filters.search) {
-        sql += `WHERE title LIKE ?`;
+    if (filters.search) {
+        sql += `
+        WHERE title LIKE ?;
+        `;
 
         params.push(`%${filters.search}%`);
-        
+
     };
+    console.log(sql);
+    
 
 
 
