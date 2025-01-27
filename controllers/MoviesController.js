@@ -33,6 +33,8 @@ const index = (req, res, next) => {
 
 const show = (req, res, next) => {
     const slug = req.params.slug;
+    console.log(slug);
+    
     const sql = `SELECT * FROM movies WHERE slug = ?`;//prima query
     const reviewsSql = `
     SELECT reviews.* 
