@@ -47,7 +47,7 @@ const show = (req, res, next) => {
         };
         if (movies.length === 0) {
             return res.status(404).json({
-                message: "Dipartimento non trovato"
+                message: "film non trovato"
             })
         } else {
             connection.query(reviewsSql, [slug], (err, reviews) => {
