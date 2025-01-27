@@ -32,11 +32,16 @@ const index = (req, res, next) => {
 };
 
 const show = (req, res, next) => {
-    const id = req.params.id;
-    const sql = `SELECT * FROM movies WHERE id = ?`;//prima query
-    const reviewsSql = `SELECT * FROM reviews WHERE movie_id = ?`;//seconda query
+    const slug = req.params.slug;
+    const sql = `SELECT * FROM movies WHERE slug = ?`;//prima query
+    const reviewsSql = `
+    SELECT reviews.* 
+    FROM reviews
+    JOIN movies
+    ON movies.id = reviews.movie_id
+    WHERE movies.slug = ?`;//seconda query
 
-    connection.query(sql, [id], (err, movies) => {
+    connection.query(sql, [slug], (err, movies) => {
         if (err) {
             return next(new Error(err.message))
         };
@@ -45,7 +50,7 @@ const show = (req, res, next) => {
                 message: "Dipartimento non trovato"
             })
         } else {
-            connection.query(reviewsSql, [id], (err, reviews) => {
+            connection.query(reviewsSql, [slug], (err, reviews) => {
                 if (err) {
                     return next(new Error(err.message))
                 };
