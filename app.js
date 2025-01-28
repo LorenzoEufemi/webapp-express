@@ -10,8 +10,10 @@ const port = process.env.SERVER_PORT;
 
 app.use(express.static("public"));//rende accessibili images a tutti
 
+app.use(express.json()); //imposto body parser
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL
+    origin: process.env.FRONTEND_URL // cors
 }));
 
 app.use("/movies", moviesRouter);//includo tutte le rotte dei movies con prefisso /movies
